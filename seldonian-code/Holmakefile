@@ -1,0 +1,30 @@
+ifndef CAKEMLDIR
+CAKEMLDIR = $(HOME)/cakeml
+endif
+
+INCLUDES = ../custom-machinery ../fundamental ../seldonian-math \
+  $(CAKEMLDIR)/basis $(CAKEMLDIR)/translator $(CAKEMLDIR)/compiler \
+  $(CAKEMLDIR)/compiler/backend/proofs $(CAKEMLDIR)/compiler/backend/x64/proofs \
+  $(CAKEMLDIR)/cv_translator
+
+HOLHEAP = $(CAKEMLDIR)/misc/cakeml-heap
+
+all: seldonian_filter seldonianProofTheory
+
+seldonianProofTheory: *seldonianProofScript.sml
+
+seldonian_filter: seldonian_filter.S
+	gcc -o $@ $< $(CAKEMLDIR)/basis/basis_ffi.c
+
+seldonian_filter.S: *seldonianCompileScript.sml
+
+pristine:
+	rm -f seldonian_filter.S
+	rm -f seldonian_filter
+	rm -f *Theory.*
+	rm -f *.uo
+	rm -f *.ui
+	rm -rf .HOLMK
+	rm -rf .hollogs
+	rm -rf .holobjs
+	rm -rf .hol

@@ -1,0 +1,11 @@
+all: $(DEFAULT_TARGETS)
+
+.PHONY: pristine
+
+pristine:
+	rm -f *Theory.*
+	rm -f *.uo
+	rm -f *.ui
+	rm -rf .HOLMK
+	rm -rf .hollogs
+	rm -rf .holobjs

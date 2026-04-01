@@ -1,0 +1,10 @@
+**/.hollogs
+**/.hol
+**/.HOLMK
+**/*Theory.*
+**/*.uo
+**/*.ui
+
+fundamental/canonScript.sml
+seldonian-code/seldonian_filter.S
+seldonian-code/seldonian_filter
