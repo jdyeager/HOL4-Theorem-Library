@@ -24,10 +24,9 @@ The file are updated to CakeML job [3279](https://cakeml.org/regression.cgi/job/
 At present, all the HOL stuff for the work is good.
 There is some cheating for some extra results in pispaceScript that aren't used
 (an attempt to create an infinite-dimensional measure space).
-The CakeML main-line work presently has a cheat in it as a stopgap
-until something in the canonical CakeML specs is tinkered with
-(see issue [1366](https://github.com/CakeML/cakeml/issues/1366)),
-or until I become bold enough to try and tackle canonical specs myself.
+
+The CakeML main-line work has some work that should be canonised
+(see issue [1366](https://github.com/CakeML/cakeml/issues/1366)).
 
 ## Canonisation
 
