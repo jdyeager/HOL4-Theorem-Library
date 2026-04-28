@@ -425,6 +425,7 @@ fetch "-" "output_from_data_string_v_def"
 *)
 val _ = translate output_from_data_string_def;
 
+(*
 val _ = (append_prog o process_topdecs) ‘
     fun inputContentFrom fname =
         let
@@ -577,6 +578,12 @@ Proof
     simp[take_drop_partition] >> irule TAKE_TAKE_T >> simp[]
 QED
 
+Theorem LENGTH_TAKE_LE_N:
+    ∀n l. LENGTH (TAKE n l) ≤ n
+Proof
+    rw[LENGTH_TAKE_EQ]
+QED
+
 Theorem inputContentFrom_spec:
    ∀p fs f fv. hasFreeFD fs ∧ FILENAME f fv ⇒
    app (p:'ffi ffi_proj) inputContentFrom_v [fv] (STDIO fs)
@@ -623,6 +630,7 @@ Proof
     ‘rofs with infds updated_by ADELKEY fd = fs’ suffices_by (simp[OPTION_TYPE_def] >> strip_tac >> xsimpl) >>
     unabbrev_all_tac >> simp[fastForwardFD_ADELKEY_same] >> irule openFileFS_ADELKEY_nextFD >> simp[]
 QED
+*)
 
 Theorem file_content_SOME_imp_filename:
     ∀fs f fv s. file_content fs f = SOME s ⇒ inFS_fname fs f
@@ -634,6 +642,48 @@ QED
 (*
 fetch "-" "main_v_def"
 *)
+val _ = (append_prog o process_topdecs) ‘
+    fun main () =
+        let
+            (* val _ = Runtime.debugMsg "foo" *)
+            val argv = CommandLine.arguments ()
+            val data_str_op = case oel 2 argv of
+                  None => None
+                | Some fname => TextIO.inputAllFrom (Some fname)
+            val outp = output_from_data_string argv data_str_op
+        in
+            print (outp ^ "\n")
+        end’;
+
+Theorem seldonian_filter_spec:
+    ∀p fs ename lntol_str sqtol_str fname lntol sqtol d_rl_ex_l.
+        hasFreeFD fs ∧ (∃fv. FILENAME fname fv) ∧
+        fromString lntol_str = SOME lntol ∧ fromString sqtol_str = SOME sqtol ∧
+        do contents <- file_content fs fname; data_from_string (strlit contents) od = SOME d_rl_ex_l ⇒
+        app (p:'ffi ffi_proj) main_v [Conv NONE []]
+            (STDIO fs * COMMANDLINE [ename; lntol_str; sqtol_str; fname])
+            (POSTv resv. &UNIT_TYPE () resv *
+                STDIO (add_stdout fs (test_results_to_string
+                    (SOME (extend_math_core (hoef_rat_math_core lntol sqtol) d_rl_ex_l)) ^ «\n»)))
+Proof
+    rpt strip_tac >> pop_assum mp_tac >> rw[] >> xcf_with_def $ fetch "-" "main_v_def" >>
+    xmatch >> xlet_auto >- (xret >> xsimpl) >>
+    xlet_auto >- (qexistsl [‘STDIO fs’,‘ename’] >> xsimpl) >>
+    xlet ‘POSTv fnamev. &OPTION_TYPE FILENAME (SOME fname) fnamev * STDIO fs’
+    >- (xapp_spec $ INST_TYPE [“:α” |-> “:mlstring”] $ fetch "-" "oel_v_thm" >> xsimpl >>
+        first_x_assum $ irule_at Any >> simp[oEL_def] >> gs[OPTION_TYPE_def,FILENAME_def]) >>
+    reverse $ xlet ‘POSTv data_strv. &OPTION_TYPE STRING_TYPE (SOME (strlit contents)) data_strv * STDIO fs’
+    >- (ntac 2 (xlet_auto >- xsimpl) >> xapp >>
+        gs[output_from_data_string_def,test_results_to_string_def,oEL_def,test_from_strings_def]) >>
+    pop_assum mp_tac >> rw[OPTION_TYPE_def] >> xmatch >>
+    simp[v_of_pat_norest_def,v_of_pat_def,AllCaseEqs ()] >>
+    reverse conj_tac >- (EVAL_TAC >> simp[]) >>
+    xlet_auto >- (xret >> xsimpl) >>
+    xapp_spec inputAllFrom_SOME_spec >> qexistsl [‘emp’,‘fs’,‘fname’] >>
+    xsimpl >> rw[OPTION_TYPE_def,GSYM implode_def]
+QED
+
+(*
 val _ = (append_prog o process_topdecs) ‘
     fun main () =
         let
@@ -672,6 +722,7 @@ Proof
     reverse conj_tac >- (EVAL_TAC >> simp[]) >>
     xapp >> qexistsl [‘emp’,‘fs’,‘fname’] >> xsimpl >> rw[OPTION_TYPE_def]
 QED
+*)
 
 (* DISSERTATION PROG SPEC *)
 Theorem seldonian_filter_whole_prog_spec:

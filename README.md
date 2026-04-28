@@ -17,16 +17,9 @@ The four subfolders:
 
 ## Version
 
-The file are updated to CakeML job [3279](https://cakeml.org/regression.cgi/job/3279).
-- CakeML: f2c8652e4819fd18e2e855bc9fa719f181ffab15
-- HOL: 63f2eb9c146352dfd0bab8c5604a096d1e554d03
-
-At present, all the HOL stuff for the work is good.
-There is some cheating for some extra results in pispaceScript that aren't used
-(an attempt to create an infinite-dimensional measure space).
-
-The CakeML main-line work has some work that should be canonised
-(see issue [1366](https://github.com/CakeML/cakeml/issues/1366)).
+The file are updated to CakeML job [3314](https://cakeml.org/regression.cgi/job/3314).
+- CakeML: e34d19e9714f40930a36cf2387075eb2f14667f9
+- HOL: 77fad203c275899bfee21faf6d2d3a66e749d7e1
 
 ## Canonisation
 
@@ -46,3 +39,7 @@ For my own record-keeping and quick access if necessary:
 - [1815](https://github.com/HOL-Theorem-Prover/HOL/pull/1815):
   Canonising trivialScript: RN derivative results
   (sort of)
+
+Contributions to CakeML:
+- Contributed to [1375](https://github.com/CakeML/cakeml/pull/1375):
+  Edits to the CakeML inputAll function.
