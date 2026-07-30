@@ -28,6 +28,18 @@ open ex_machina;
 
 val _ = new_theory "trivial";
 
+(*
+Theory trivial
+Ancestors
+    marker combin pair arithmetic
+    pred_set list rich_list finite_map
+    real lim transc real_sigma
+    binary_ieee
+    sigma_algebra real_borel measure lebesgue martingale probability
+Libs
+    realLib
+*)
+
 (* Voodoo definitions *)
 
 val name_to_thname = fn (t,s) => ({Thy = t, Name = s}, DB.fetch t s);

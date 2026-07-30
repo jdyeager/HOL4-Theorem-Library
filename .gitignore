@@ -6,5 +6,5 @@
 **/*.ui
 
 fundamental/canonScript.sml
-seldonian-code/seldonian_filter.S
-seldonian-code/seldonian_filter
+ml-safety/seldonian-code/seldonian_filter.S
+ml-safety/seldonian-code/seldonian_filter

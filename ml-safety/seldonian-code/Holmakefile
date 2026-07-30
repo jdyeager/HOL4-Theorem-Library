@@ -2,7 +2,7 @@ ifndef CAKEMLDIR
 CAKEMLDIR = $(HOME)/cakeml
 endif
 
-INCLUDES = ../custom-machinery ../fundamental ../seldonian-math \
+INCLUDES = ../../custom-machinery ../../fundamental ../seldonian-math \
   $(CAKEMLDIR)/basis $(CAKEMLDIR)/translator $(CAKEMLDIR)/compiler \
   $(CAKEMLDIR)/compiler/backend/proofs $(CAKEMLDIR)/compiler/backend/x64/proofs \
   $(CAKEMLDIR)/cv_translator
