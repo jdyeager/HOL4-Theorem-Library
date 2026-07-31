@@ -80,15 +80,11 @@ Theorem th4:
                 A = info_set N;
                 uAc = frozen_bits N;
                 pui = uniform_discrete_prob_space {0n; 1n};
-                puA = pi_measure_space_list (GENLIST (K pui) (CARD A));
-                puAw = prod_measure_space puA pW
+                puA = pi_measure_space_list (GENLIST (K pui) (CARD A))
             in
-                T
+                prob (puA × pW) ({uAw | pc_err Ws A uAc uAw} ∩ p_space (puA × pW)) ≤
+                    Normal c * (&N powr (-1/4))
 Proof
     cheat
 QED
 
-prob (puA × pW) ({uAw | pc_err Ws A uAc uAw} ∩ p_space (puA × pW)) ≤
-                    Normal c * (&N powr (-1/4))
-
-(puA × pW)
